@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <div class="card mb-3 shadow">
+        <!-- <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Détail de la Catégorie</h3>
+        </div> -->
+        <div class="card-body">
+            <ng-container *ngIf="categorie; else noCategorie">
+                <div class="row">
+                    <!-- <div class="col-md-6">
+                        <img [src]="categorie.image ? baseURL + 'storage/files/' + categorie.image : '../../assets/images/default-avatar.jpg'"
+                             class="img-fluid rounded" alt="Image de la catégorie">
+                    </div> -->
+                    <div class="col-md-12">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-center bg-light">
+                                <h4>{{ categorie.name_Categorie }}</h4>
+                            </li>
+                            <li class="list-group-item"><strong>Description: </strong>{{ categorie.description }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noCategorie>
+                <p class="alert alert-warning">Catégorie n'existe pas.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

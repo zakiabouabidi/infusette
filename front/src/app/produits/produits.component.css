@@ -1,0 +1,22 @@
+.card {
+    min-height: 300px;
+}
+
+.card-img-top {
+    height: 260px;
+    object-fit: cover;
+}
+
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.col-md-3, .col-sm-6 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.container{ max-width:87%;}
+
+
+.card-text{ min-height: 163px;}

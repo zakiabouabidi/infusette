@@ -1,0 +1,60 @@
+<div class="card  mb-5 ">
+ 
+   
+    <div class="card-body" >
+        <h3 *ngIf="!categorie.id; else update"class="text-center">Ajout Categorie</h3>
+        <ng-template #update>
+            <h3 class="text-center"> Modifier Categorie</h3>
+        </ng-template>
+        <!--<form  (ngSubmit)="onAddContact(form)" #form="ngForm">-->
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-group">
+                <label for="name">Nom de Categorie</label>
+                <input type="text" class="form-control" name="name" 
+                [ngClass]="{'is-invalid':(name.invalid && name.dirty)||(errName.length!=0),'is-valid':name.valid}"
+                required  #name="ngModel" [(ngModel)]="categorie.name_Categorie">
+                <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+                    tappez votre nom de categorie.
+                </div>
+                <div *ngIf="errName.length!=0" class="invalid-feedback">
+                    Ce nom de catégorie existe déjà.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Description</label>
+                <textarea class="form-control" id="description" rows="5" name="description"
+                [ngClass]="{'is-invalid':description.invalid && description.dirty,'is-valid':description.valid}"
+                 required #description="ngModel" [(ngModel)]="categorie.description"></textarea>
+                <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
+                    tappez votre description.
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <img *ngIf="categorie.id"
+                    [src]="categorie.image ? baseURL + 'storage/files/' + categorie.image : '../../assets/images/default-avatar.jpg'"
+                    class="img-responsive img-rounded" style="max-height: 50px; max-width: 50px;" alt="photo">
+                
+                <label class="btn btn-success p-0">
+                    <input type="file" (change)="selectFile($event)" />
+                </label>
+                
+                <div *ngIf="currentFile" class="progress my-3">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                        attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                        [ngStyle]="{ width: progress + '%' }">
+                        {{ progress }}%
+                    </div>
+                </div>
+                
+                 <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+            </div> -->
+                
+                <!-- Display a message if there is one, for example, success or error messages. -->
+               
+            
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid ">Enregistrer </button>
+        </form>
+    </div>
+</div>
+

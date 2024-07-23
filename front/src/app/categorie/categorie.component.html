@@ -1,0 +1,81 @@
+<div class="mt-5 py-4">
+    <div class="card-header d-flex justify-content-between align-items-center" *ngIf="showAdminFn">
+      <!-- <span>Nos categories</span> -->
+      <span></span>
+      <button class="btn btn-info" (click)="onAddCategorie()">Ajouter categorie</button>
+    </div>
+  
+    <div class="card-body" >
+        <div *ngIf="categories.length > 0; else noContacts">
+        
+            <div class="table-responsive" *ngIf="showAdminFn">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let categorie of categories">
+                            <td>{{ categorie.name_Categorie }}</td>
+                            <td>{{ categorie.description }}</td>
+                            <td><a routerLink="/categories/{{ categorie.id }}" class="btn btn-success">Détail</a></td>
+                            <td *ngIf="showAdminFn"><a routerLink="/categories/edit/{{ categorie.id }}" class="btn btn-warning">Modifier</a></td>
+                            <td *ngIf="showAdminFn">
+                                <button class="btn btn-danger" (click)="confirmDelete(categorie.id)" [disabled]="isWaitingDelete">Supprimer</button>
+                            </td>
+                        </tr><br>
+                        <br><br><br>
+                        <br><br><br>
+                        <br><br>
+                    </tbody>
+          </table>
+        </div>
+        <section>
+          <div class="container" *ngIf="!showAdminFn">
+            <!-- <h2 class="text-center">Nos categories</h2> -->
+            <div class="row">
+              <!-- Utilisez col-md-3 pour afficher 4 colonnes sur les écrans moyens et plus grands -->
+              <div class="col-md-3 col-sm-6 mb-4" *ngFor="let categorie of categories">
+                <div class="card h-100">
+                  <img
+                    [src]="categorie.image ? baseURL + 'storage/files/' + categorie.image : '../../assets/images/default-avatar.jpg'"
+                    class="card-img-top" alt="...">
+                  <div class="card-body text-center">
+                    <h3 class="card-title">{{ categorie.name_Categorie }}</h3>
+                    <!-- <p class="card-text"> <strong>Prix:</strong> {{ categorie.prix }}</p> -->
+                    <p class="card-text"> <strong>Description:</strong> {{ categorie.description }}</p>
+                    <a routerLink="/categories/{{ categorie.id }}" class="btn btn-success mr-2">Voir Plus</a>
+                    <!-- <button class="btn btn-danger" (click)="addToPanier(categorie)">Ajouter au panier</button> -->
+                  </div>
+                </div>
+              </div>
+            </div> 
+             <!-- <div class="d-flex justify-content-center ">
+          <button class="btn btn-primary width: 424" >Ajouter au panier</button>
+        </div> -->
+          </div>
+        </section>
+      
+      </div>
+      <div *ngIf="isWaitingDelete">
+        <span class="spinner-border" role="status"></span>
+      </div>
+      <div [hidden]="!isWaiting">
+        <div class="spinner-border" role="status"></div>
+      </div>
+      <ng-template #noContacts>
+        <p class="alert alert-warning">
+          Aucun categorie trouvé !
+        </p>
+        <div *ngIf="errMsg" class="alert alert-danger">
+          <strong>Erreur! </strong>{{errMsg}}
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  

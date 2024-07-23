@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div *ngIf="isWaiting" class="spinner-border" role="status"></div>
+    <div *ngIf="!isWaiting">
+      <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} Coffret</h2>
+      <form (ngSubmit)="saveCoffret()">
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" [(ngModel)]="coffret.nom" name="nom" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="prix">Prix</label>
+          <input type="number" id="prix" [(ngModel)]="coffret.prix" name="prix" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="quantite">Quantité</label>
+          <input type="number" id="quantite" [(ngModel)]="coffret.quantite" name="quantite" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="produits">Produits</label>
+          <select multiple class="form-control" id="produits" [(ngModel)]="coffret.produitIds" name="produits">
+            <option *ngFor="let produit of produits" [value]="produit.id">{{ produit.name }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</button>
+      </form>
+    </div>
+    <div *ngIf="errMsg" class="alert alert-danger mt-3">
+      <strong>Erreur! </strong>{{errMsg}}
+    </div>
+  </div>
+  

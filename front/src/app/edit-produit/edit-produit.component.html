@@ -1,0 +1,106 @@
+<div class="card border-primary mb-3 mt-5">
+   
+
+    <div class="card-body mt-5" >
+        <h3 *ngIf="!produit.id; else update" class="text-center">Ajout Produit</h3>
+        <ng-template #update>
+            <h3 class="text-center"> Modifier Produit</h3>
+        </ng-template>
+        <!--<form  (ngSubmit)="onAddContact(form)" #form="ngForm">-->
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" #name="ngModel"
+                [ngClass]="{'is-invalid':(name.invalid && name.dirty)||(errName.length!=0),'is-valid':name.valid}"
+                required   [(ngModel)]="produit.name">
+                <div *ngIf="(name.invalid && name.dirty)" class="invalid-feedback">
+                    tappez votre nom de produit.
+                </div>
+                <!-- <div *ngIf="errName.length!=0" class="invalid-feedback">
+                    Ce nom de Produit existe déjà.
+                </div> -->
+            </div>
+            <div class="form-group">
+                <label for="prix">Prix</label>
+                <input type="number" class="form-control" name="prix" #prix="ngModel" 
+                [ngClass]="{'is-invalid':prix.invalid && prix.dirty,'is-valid':prix.valid}"
+                required  [(ngModel)]="produit.prix">
+                <div *ngIf="prix.invalid && prix.dirty" class="invalid-feedback">
+                    tappez votre prix.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="prix">Quantite</label>
+                <input type="number" class="form-control" name="quantite" 
+                [ngClass]="{'is-invalid':quantite.invalid && quantite.dirty,'is-valid':quantite.valid}"
+                required  #quantite="ngModel" [(ngModel)]="produit.quantite">
+                <div *ngIf="quantite.invalid && quantite.dirty" class="invalid-feedback">
+                    tappez votre  quantite.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Ingrédients</label>
+                <textarea class="form-control" id="ingredients" rows="3" name="ingredients" #ingredients="ngModel"
+                [ngClass]="{'is-invalid':ingredients.invalid && ingredients.dirty,'is-valid':ingredients.valid}"
+                required   [(ngModel)]="produit.ingredients"></textarea>
+                <div *ngIf="ingredients.invalid && ingredients.dirty" class="invalid-feedback">
+                 taper votre ingredients
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description" #description="ngModel"
+                [ngClass]="{'is-invalid':description.invalid && description.dirty,'is-valid':description.valid}"
+                required   [(ngModel)]="produit.description"></textarea>
+                <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
+                 taper votre description
+                </div>
+            </div>
+            <div class="form-group">
+                <fieldset class="form-group row">
+                    <legend class="col-form-label col-sm-2 float-sm-left pt-0">Catégorie</legend>
+                    <div class="col-sm-10">
+                        <div *ngFor="let cat of categories">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="categorie" [value]="cat.id" #categorie="ngModel"
+                                [ngClass]="{'is-invalid': categorie.invalid && categorie.dirty, 'is-valid': categorie.valid}"
+                                required [(ngModel)]="produit.categorieID">
+                                <label class="form-check-label" for="gridRadios1">
+                                    {{ cat.name_Categorie }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            
+           
+            <div class="form-group">
+                <!-- Display the produit's image if the produit has an id (update use case). Use a default avatar if no image is available. -->
+                <img *ngIf="produit.id"
+                    [src]="produit.image ? baseURL + 'storage/files/' + produit.image : '../../assets/images/default-avatar.jpg'"
+                    class="img-responsive img-rounded" style="max-height: 50px; max-width: 50px;" alt="photo">
+                
+                <!-- File input for selecting a new image, styled as a button. -->
+                <label class="btn btn-success p-0">
+                    <input type="file" (change)="selectFile($event)" />
+                </label>
+                
+                <!-- Display a progress bar when a file is being uploaded. -->
+                <div *ngIf="currentFile" class="progress my-3">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                        attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                        [ngStyle]="{ width: progress + '%' }">
+                        {{ progress }}%
+                    </div>
+                </div>
+                
+                <!-- Display a message if there is one, for example, success or error messages. -->
+                <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary text-center" [disabled]="form.invalid" > Engregistrer </button>
+        </form>
+    </div>
+</div>

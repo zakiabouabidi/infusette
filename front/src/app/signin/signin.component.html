@@ -1,0 +1,53 @@
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center">Connexion</h4>
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              <p>{{errorMessage}}</p>
+            </div>
+            <form #formLogin="ngForm" (ngSubmit)="onSubmitSingin(formLogin)">
+              <div class="mb-3">
+                <label for="email" class="form-label">adresse Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="adresse Email"
+                  ngModel
+                  #email="ngModel"
+                  name="email"
+                  required
+                  email>
+                <div *ngIf="email.errors && formLogin.submitted" class="text-danger">
+                  L’e-mail est obligatoire !
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="Mot de passe "
+                  ngModel
+                  #password="ngModel"
+                  name="password"
+                  required
+                  minlength="4">
+                  <div *ngIf="password.errors && formLogin.submitted" class="text-danger">
+                    <div *ngIf="password.errors['required']">Mot de passe est obligatoire</div>
+                    <div *ngIf="password.errors['minlength']" >
+                      Le mot de passe doit comporter au moins 6 caractères
+                    </div>
+                  </div>
+              </div>
+              <button  type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="text-center">Vous n’avez pas de compte ? <strong><a href="/signup">Créer un compte</a></strong> maintenant!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

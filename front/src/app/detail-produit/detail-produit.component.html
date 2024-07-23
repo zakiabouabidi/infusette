@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <div class="card mb-3 shadow">
+       
+        <li class="list-group-item text-center bg-light">
+            <h4>{{ produit?.name }}</h4>
+        </li>
+        <div class="card-body">
+            <ng-container *ngIf="produit; else noProduit">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img [src]="produit.image ? baseURL + 'storage/files/' + produit.image : '../../assets/images/default-avatar.jpg'"
+                             class="img-fluid rounded" alt="Image du produit">
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <!-- <li class="list-group-item text-center bg-light">
+                                <h4>{{ produit.name }}</h4>
+                            </li> -->
+                            <li class="list-group-item"><strong>Prix: </strong>{{ produit.prix }} €</li>
+                            <li class="list-group-item"><strong>Quantité: </strong>{{ produit.quantite }}</li>
+                            <li class="list-group-item"><strong>Ingrédients: </strong>{{ produit.ingredients }}</li>
+                            <li class="list-group-item"><strong>Description: </strong>{{ produit.description }}</li>
+                            <li class="list-group-item"><strong>Catégorie: </strong>{{ produit.categorienamme }}</li>
+                        </ul>
+                        <!-- <div class="text-center mt-4">
+                            <button class="btn btn-primary" (click)="addToPanier(produit)">
+                                Ajouter au Panier
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noProduit>
+                <p class="alert alert-warning">Produit n'existe pas.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>
